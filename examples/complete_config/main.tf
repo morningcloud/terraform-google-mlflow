@@ -1,6 +1,7 @@
 module "mlflow" {
-  source  = "teamdatatonic/mlflow/google"
-  version = "1.1.0"
+  #source  = "teamdatatonic/mlflow/google"
+  source  = "../../../terraform-google-mlflow"
+  #version = "1.1.0"
 
   project_id          = var.project_id
   region              = var.region
@@ -14,4 +15,10 @@ module "mlflow" {
   domain              = var.domain
   webapp_users        = var.webapp_users
   storage_uniform     = var.storage_uniform
+  db_instance_prefix  = var.db_instance_prefix
+  db_name             = var.db_name
+  db_version          = var.db_version
+  db_tier             = var.db_tier
+  network_self_link   = var.network_self_link
 }
+

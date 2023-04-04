@@ -6,7 +6,7 @@ variable "artifacts_bucket_name" {
 variable "artifacts_bucket_location" {
   description = "Location of the bucket to store artifacts"
   type        = string
-  default     = "europe-west2"
+  default     = "australia-southeast1"
 }
 
 variable "artifacts_number_version" {

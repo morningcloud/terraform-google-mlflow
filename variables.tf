@@ -25,8 +25,9 @@ variable "mlflow_docker_image" {
 }
 
 variable "network_name" {
-  description = "if you have a prefered network to use enter it if not leave it empty one will be created for you"
+  description = "if you have a prefered network to use enter it if not default is used"
   type        = string
+  default     = "default"
 }
 
 variable "storage_uniform" {
@@ -63,4 +64,33 @@ variable "domain" {
 variable "webapp_users" {
   description = "List of people who can acess the mlflow web app. e.g. [user:jane@example.com, group:people@example.com]"
   type        = list(string)
+}
+
+variable "db_instance_prefix" {
+  description = "name of database instance you want to create"
+  type        = string
+  default     = "mlflow"
+}
+
+variable "db_name" {
+  description = "The name of the database instance to create."
+  type        = string
+  default     = "mlflow_db"
+}
+
+variable "db_version" {
+  description = "The version of the database to create."
+  type        = string
+  default     = "POSTGRES_13"
+}
+
+variable "db_tier" {
+  description = "The tier of the database to create."
+  type        = string
+  default     = "df-f1-micro"
+}
+
+variable "network_self_link" {
+  description = "if you have a private network link to use enter it if not leave it empty one will be created for you"
+  type        = string
 }

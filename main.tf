@@ -26,11 +26,13 @@ module "services" {
     "cloudbuild.googleapis.com"
   ]
 }
-module "network" {
-  source       = "./modules/network"
-  project_id   = var.project_id
-  network_name = var.network_name
-}
+
+# GHD: Don't create network resource, use variables provided
+#module "network" {
+#  source       = "./modules/network"
+#  project_id   = var.project_id
+#  network_name = var.network_name
+#}
 
 module "mlflow" {
   source                = "./modules/mlflow"
@@ -39,8 +41,8 @@ module "mlflow" {
   project_id            = var.project_id
   region                = var.region
   zone                  = var.zone
-  network_self_link     = module.network.network_self_link
-  network_short_name    = module.network.network_short_name
+  network_self_link     = var.network_self_link #!module.network.network_self_link
+  network_short_name    = var.network_name #module.network.network_short_name
   brand_name            = var.brand_name
   support_email         = var.support_email
   oauth_client_id       = var.oauth_client_id
@@ -48,4 +50,8 @@ module "mlflow" {
   lb_name               = var.lb_name
   domain                = var.domain
   webapp_users          = var.webapp_users
+  db_instance_prefix    = var.db_instance_prefix
+  db_name               = var.db_name
+  db_version            = var.db_version
+  db_tier               = var.db_tier
 }
