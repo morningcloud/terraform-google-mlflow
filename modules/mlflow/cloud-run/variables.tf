@@ -88,3 +88,8 @@ variable "logger_email" {
   description = "The email address of the logger service account"
   type        = string
 }
+
+variable "vpc_connector_name" {
+  description = "The existing VPC connector name to use for cloud run service"
+  type = string
+}

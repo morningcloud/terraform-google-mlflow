@@ -1,13 +1,20 @@
 data "google_project" "project" {
   project_id = var.project_id
 }
-resource "google_vpc_access_connector" "connector" {
-  name          = "vpc-mlflow-connector"
-  provider      = "google-beta"
-  ip_cidr_range = "10.8.0.0/28"
+
+# GHD: Use existing VPC connector
+data "google_vpc_access_connector" "connector" {
+  name          = var.vpc_connector_name #aus-southeast-dev-tunnel
+  project       = data.google_project.project.project_id
   region        = var.region
-  network       = var.network_short_name
 }
+#resource "google_vpc_access_connector" "connector" {
+#  name          = "vpc-mlflow-connector"  
+#  provider      = "google-beta"
+#  ip_cidr_range = "10.8.0.0/28"
+#  region        = var.region
+#  network       = var.network_short_name
+#}
 
 resource "google_project_iam_member" "cloud_sql" {
   project = data.google_project.project.project_id
@@ -34,7 +41,7 @@ resource "google_cloud_run_service" "mlflow_service" {
 
   metadata {
     annotations = {
-      "run.googleapis.com/ingress" = "internal-and-cloud-load-balancing"
+      "run.googleapis.com/ingress" = "all" #"internal-and-cloud-load-balancing"
     }
   }
 
@@ -62,13 +69,19 @@ resource "google_cloud_run_service" "mlflow_service" {
           name  = "GCP_BUCKET"
           value = var.gcs_backend
         }
+        resources {
+          limits = {
+            memory = "1Gi"
+          }
+        }
       }
     }
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale"        = "5"
+        "autoscaling.knative.dev/minScale"        = "1"
+        "autoscaling.knative.dev/maxScale"        = "3"
         "run.googleapis.com/cloudsql-instances"   = var.db_instance
-        "run.googleapis.com/vpc-access-connector" = google_vpc_access_connector.connector.name
+        "run.googleapis.com/vpc-access-connector" = data.google_vpc_access_connector.connector.name
       }
     }
   }

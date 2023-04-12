@@ -15,7 +15,7 @@ module "db_secret" {
 module "database" {
   source            = "./database"
   project_id        = var.project_id
-  instance_prefix   = var.db_instance_prefix
+  instance_prefix   = var.db_instance
   db_version        = var.db_version
   region            = var.db_region
   db_tier           = var.db_tier
@@ -46,6 +46,7 @@ module "cloud_run" {
   db_private_ip       = module.database.private_ip
   gcs_backend         = module.artifacts.url
   network_short_name  = var.network_short_name
+  vpc_connector_name  = var.vpc_connector_name
   brand_name          = var.brand_name
   support_email       = var.support_email
   domain              = var.domain

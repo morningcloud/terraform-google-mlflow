@@ -34,14 +34,21 @@ variable "network_self_link" {
   type        = string
 }
 
+variable "vpc_connector_name" {
+  description = "The existing VPC connector name to use for cloud run service"
+  type = string
+}
+
 variable "storage_uniform" {
   description = "Uniform access level to be activated for the buckets"
   type        = string
+  default     = ""
 }
 
 variable "create_brand" {
   description = "1 if the brand needs to be created, 0 otherwise"
   type        = number
+  default     = 0
 }
 
 variable "brand_name" {
@@ -75,7 +82,7 @@ variable "webapp_users" {
   type        = list(string)
 }
 
-variable "db_instance_prefix" {
+variable "db_instance" {
   description = "name of database instance you want to create"
   type        = string
   default     = "mlflow"

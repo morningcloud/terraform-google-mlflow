@@ -15,10 +15,10 @@ module "mlflow" {
   domain              = var.domain
   webapp_users        = var.webapp_users
   storage_uniform     = var.storage_uniform
-  db_instance_prefix  = var.db_instance_prefix
+  db_instance  = var.db_instance
   db_name             = var.db_name
   db_version          = var.db_version
   db_tier             = var.db_tier
   network_self_link   = var.network_self_link
+  vpc_connector_name  = var.vpc_connector_name
 }
-

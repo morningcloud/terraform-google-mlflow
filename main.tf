@@ -43,6 +43,7 @@ module "mlflow" {
   zone                  = var.zone
   network_self_link     = var.network_self_link #!module.network.network_self_link
   network_short_name    = var.network_name #module.network.network_short_name
+  vpc_connector_name    = var.vpc_connector_name
   brand_name            = var.brand_name
   support_email         = var.support_email
   oauth_client_id       = var.oauth_client_id
@@ -50,7 +51,7 @@ module "mlflow" {
   lb_name               = var.lb_name
   domain                = var.domain
   webapp_users          = var.webapp_users
-  db_instance_prefix    = var.db_instance_prefix
+  db_instance           = var.db_instance
   db_name               = var.db_name
   db_version            = var.db_version
   db_tier               = var.db_tier

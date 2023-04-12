@@ -66,7 +66,7 @@ variable "webapp_users" {
   type        = list(string)
 }
 
-variable "db_instance_prefix" {
+variable "db_instance" {
   description = "name of database instance you want to create"
   type        = string
   default     = "mlflow"
@@ -93,4 +93,9 @@ variable "db_tier" {
 variable "network_self_link" {
   description = "if you have a private network link to use enter it if not leave it empty one will be created for you"
   type        = string
+}
+
+variable "vpc_connector_name" {
+  description = "The existing VPC connector name to use for cloud run service"
+  type = string
 }

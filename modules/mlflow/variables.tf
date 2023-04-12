@@ -21,7 +21,7 @@ variable "artifacts_storage_class" {
   default     = "STANDARD"
 }
 
-variable "db_instance_prefix" {
+variable "db_instance" {
   description = "prefix of the database instance you want to create"
   type        = string
   default     = "mlflow"
@@ -66,7 +66,7 @@ variable "db_username" {
 variable "db_password_secret_name" {
   description = "The secret name of the password for the database created."
   type        = string
-  default     = "mlflow-db-pwd"
+  default     = "MLFLOW_DB_PASSWORD"
 }
 
 
@@ -98,6 +98,11 @@ variable "network_self_link" {
 variable "network_short_name" {
   description = "The short name of the network to use for the database instance.(The private network in ../network)"
   type        = string
+}
+
+variable "vpc_connector_name" {
+  description = "The existing VPC connector name to use for cloud run service"
+  type = string
 }
 
 variable "brand_name" {
